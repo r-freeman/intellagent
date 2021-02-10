@@ -1,0 +1,24 @@
+{
+  "name": "twitter-test",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "nodenv --exec nodemon server.js -- --exec babel-node -e js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "ngrok": "^3.4.0",
+    "node-env-run": "^4.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "twitter-autohook": "^1.7.2"
+  }
+}
