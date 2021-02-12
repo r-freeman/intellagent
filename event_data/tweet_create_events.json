@@ -3,12 +3,12 @@
   "user_has_blocked": false,
   "tweet_create_events": [
     {
-      "created_at": "Sun Feb 07 14:23:02 +0000 2021",
-      "id": 1358421012648501200,
-      "id_str": "1358421012648501248",
-      "text": "@intellagenthelp how do I make a complaint please?",
+      "created_at": "Fri Feb 12 21:07:45 +0000 2021",
+      "id": 1360334804856828000,
+      "id_str": "1360334804856827904",
+      "text": "@intellagenthelp I ordered an apple TV box 3 months ago which was sent to the wrong address. Despite 6 conversation… https://t.co/wKQ0UMbdBA",
       "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>",
-      "truncated": false,
+      "truncated": true,
       "in_reply_to_status_id": null,
       "in_reply_to_status_id_str": null,
       "in_reply_to_user_id": 1324102269844017200,
@@ -17,8 +17,8 @@
       "user": {
         "id": 1347280911218462700,
         "id_str": "1347280911218462720",
-        "name": "Ryan",
-        "screen_name": "Ryan78175340",
+        "name": "Zoila Gerlach",
+        "screen_name": "zoilagerlach",
         "location": null,
         "url": null,
         "description": null,
@@ -46,8 +46,8 @@
         "profile_sidebar_fill_color": "DDEEF6",
         "profile_text_color": "333333",
         "profile_use_background_image": true,
-        "profile_image_url": "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png",
-        "profile_image_url_https": "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png",
+        "profile_image_url": "http://pbs.twimg.com/profile_images/1360273942934650884/z7hcpGpx_normal.jpg",
+        "profile_image_url_https": "https://pbs.twimg.com/profile_images/1360273942934650884/z7hcpGpx_normal.jpg",
         "default_profile": true,
         "default_profile_image": false,
         "following": null,
@@ -59,13 +59,47 @@
       "place": null,
       "contributors": null,
       "is_quote_status": false,
+      "extended_tweet": {
+        "full_text": "@intellagenthelp I ordered an apple TV box 3 months ago which was sent to the wrong address. Despite 6 conversations via webchat or phone no one has been able to sort this! What do I do next?",
+        "display_text_range": [
+          0,
+          191
+        ],
+        "entities": {
+          "hashtags": [],
+          "urls": [],
+          "user_mentions": [
+            {
+              "screen_name": "intellagenthelp",
+              "name": "Intellagent",
+              "id": 1324102269844017200,
+              "id_str": "1324102269844017152",
+              "indices": [
+                0,
+                16
+              ]
+            }
+          ],
+          "symbols": []
+        }
+      },
       "quote_count": 0,
       "reply_count": 0,
       "retweet_count": 0,
       "favorite_count": 0,
       "entities": {
         "hashtags": [],
-        "urls": [],
+        "urls": [
+          {
+            "url": "https://t.co/wKQ0UMbdBA",
+            "expanded_url": "https://twitter.com/i/web/status/1360334804856827904",
+            "display_url": "twitter.com/i/web/status/1…",
+            "indices": [
+              117,
+              140
+            ]
+          }
+        ],
         "user_mentions": [
           {
             "screen_name": "intellagenthelp",
@@ -84,7 +118,7 @@
       "retweeted": false,
       "filter_level": "low",
       "lang": "en",
-      "timestamp_ms": "1612707782314"
+      "timestamp_ms": "1613164065933"
     }
   ]
 }
