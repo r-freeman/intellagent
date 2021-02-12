@@ -1,6 +1,8 @@
 const {Autohook} = require('twitter-autohook');
 const fs = require('fs');
 
+// captures twitter webhook events and saves them to json in ./event_data
+// useful for testing the Twitter API with Postman
 (async function () {
     try {
         const webhook = new Autohook();
