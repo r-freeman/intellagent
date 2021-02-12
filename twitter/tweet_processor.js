@@ -26,7 +26,7 @@ const tweetProcessor = {
 
         try {
             await twClient.replyToTweet(defaultTweet(sender.screenName,
-                this.deeplinkWelcomeMessage(user.id_str, '1360342311830495237')), tweet.id_str);
+                this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
         } catch (e) {
             console.error(e);
         }
