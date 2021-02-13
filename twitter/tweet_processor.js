@@ -25,7 +25,14 @@ const tweetProcessor = {
             // return if the sender is the same as our user
             if (sender.id === user.id) return;
 
+            // we're only interested in tweets sent to us, not replies to tweets
+            if (tweet.in_reply_to_status_id !== null) return;
+
+            console.log(`Tweet received from @${sender.screenName}`);
+            console.log(tweet);
+
             try {
+                // send a reply to the tweet, inviting the user to a direct message conversation
                 await twClient.replyToTweet(defaultTweet(sender.screenName,
                     this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
             } catch (e) {
