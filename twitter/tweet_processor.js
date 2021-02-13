@@ -8,7 +8,8 @@ const tweetProcessor = {
         return `https://twitter.com/messages/compose?recipient_id=${recipientId}&welcome_message_id=${welcomeMessageId}`;
     },
     process: async function (event) {
-        try { // get our user
+        try {
+            // get our user
             const user = await twitterClient.getUser();
 
             // retrieve the first tweet in the array
