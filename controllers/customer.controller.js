@@ -3,10 +3,10 @@ const Customer = require('../models/customer.model');
 // create a new customer
 exports.create = async (req, res) => {
     try {
-        const {name, email = null, phone = null, twitter_id, twitter_id_str, twitter_screen_name} = req.body;
+        const {name, twitter_id, twitter_id_str, twitter_screen_name} = req.body;
 
         const customer = await Customer.create({
-            name, email, phone, twitter_id, twitter_id_str, twitter_screen_name
+            name, twitter_id, twitter_id_str, twitter_screen_name
         });
 
         return res.status(201).send(customer);
