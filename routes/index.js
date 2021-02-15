@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const HookRoutes = require('./hook.routes');
-const AuthorRoutes = require('./author.routes');
+const CustomerRoutes = require('./customer.routes');
 
 router.use('/hook', HookRoutes);
-router.use('/authors', AuthorRoutes);
+router.use('/customers', CustomerRoutes);
 
 module.exports = router;
