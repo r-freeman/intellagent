@@ -4,9 +4,7 @@ const CustomerController = require('../controllers/customer.controller');
 
 const {validateSchema, validateCreate} = require('../middleware/validators/customer.validators');
 
-CustomerRoutes
-    .post('/', validateSchema, validateCreate, CustomerController.create)
-    .get('/', CustomerController.findOne);
-// .get('/:id', validateCustomer, CustomerController.findOne);
+CustomerRoutes.post('/', validateSchema, validateCreate, CustomerController.create);
+CustomerRoutes.get('/', CustomerController.findOne);
 
 module.exports = CustomerRoutes;
