@@ -13,6 +13,9 @@ const tweetProcessor = {
             // get our user
             const user = await twitterClient.getUser();
 
+            // declare and initialise customer to null
+            let customer = null;
+
             // retrieve the first tweet in the array
             const tweet = event.tweet_create_events.shift();
 
@@ -34,34 +37,53 @@ const tweetProcessor = {
             console.log(tweet);
 
             try {
-                // store the author of the tweet in our database
-                await fetch('http://localhost:3000/api/v1/authors', {
-                    method: 'post',
-                    body: JSON.stringify({
-                        twitter_id: sender.id,
-                        twitter_id_str: sender.id_str,
-                        name: sender.name,
-                        screen_name: sender.screen_name
-                    }),
+                // look up customer with twitter_id (sender.id)
+                await fetch(`http://localhost:3000/api/v1/customers?twitter_id=${sender.id}`, {
+                    method: 'get',
                     headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-                })
-                    .then(res => res.json())
-                    .then(res => {
-                        console.log(res);
-                    })
-            } catch (e) {
-                console.error(e);
+                }).then(response => response.json()
+                    .then(async function (res) {
+                        if (response.status === 200) {
+                            customer = res;
+                        } else if (response.status === 404) {
+                            /// no customer found with twitter_id, create one
+                            await fetch('http://localhost:3000/api/v1/customers', {
+                                method: 'post',
+                                body: JSON.stringify({
+                                    name: sender.name,
+                                    twitter_id: sender.id,
+                                    twitter_id_str: sender.id_str,
+                                    twitter_screen_name: sender.screen_name
+                                }),
+                                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+                            }).then(response => response.json()
+                                .then(res => {
+                                    if (response.status === 201) {
+                                        customer = res;
+                                    }
+                                })
+                            )
+                        }
+                    }).catch(err => {
+                        console.error(err);
+                    }));
+            } catch (err) {
+                console.error(err);
             }
 
-            // try {
-            //     // send a reply to the tweet, inviting the user to a direct message conversation
-            //     await twClient.replyToTweet(defaultTweet(sender.screenName,
-            //         this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
-            // } catch (e) {
-            //     console.error(e);
-            // }
-        } catch (e) {
-            console.error(e);
+            if (customer !== null) {
+                // TODO: create a new tweet and associate it with this customer
+
+                try {
+                    // send a tweet reply, inviting the customer to a direct message conversation
+                    await twClient.replyToTweet(defaultTweet(customer.twitter_screen_name,
+                        this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        } catch (err) {
+            console.error(err);
         }
     }
 };
