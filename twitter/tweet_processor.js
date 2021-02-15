@@ -3,6 +3,7 @@ import twitterClient from './client';
 
 const twClient = twitterClient;
 const defaultTweet = require('./default_tweet');
+const {headers} = require('../common');
 
 const tweetProcessor = {
     deeplinkWelcomeMessage: function (recipientId, welcomeMessageId) {
@@ -11,7 +12,7 @@ const tweetProcessor = {
     process: async function (event) {
         try {
             // get our user
-            const user = await twitterClient.getUser();
+            const user = await twClient.getUser();
 
             // declare and initialise customer to null
             let customer = null;
@@ -38,45 +39,41 @@ const tweetProcessor = {
 
             try {
                 // look up customer with twitter_id (sender.id)
-                await fetch(`http://localhost:3000/api/v1/customers?twitter_id=${sender.id}`, {
+                const response = await fetch(`${process.env.BASE_URL}customers?twitter_id=${sender.id}`, {
                     method: 'get',
-                    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-                }).then(response => response.json()
-                    .then(async function (res) {
-                        if (response.status === 200) {
-                            customer = res;
-                        } else if (response.status === 404) {
-                            /// no customer found with twitter_id, create one
-                            await fetch('http://localhost:3000/api/v1/customers', {
-                                method: 'post',
-                                body: JSON.stringify({
-                                    name: sender.name,
-                                    twitter_id: sender.id,
-                                    twitter_id_str: sender.id_str,
-                                    twitter_screen_name: sender.screen_name
-                                }),
-                                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
-                            }).then(response => response.json()
-                                .then(res => {
-                                    if (response.status === 201) {
-                                        customer = res;
-                                    }
-                                })
-                            )
-                        }
-                    }).catch(err => {
-                        console.error(err);
-                    }));
+                    headers
+                });
+
+                if (response.status === 200) {
+                    customer = await response.json();
+                } else if (response.status === 404) {
+                    //  no customer found with twitter_id, create one
+                    const response = await fetch(`${process.env.BASE_URL}customers`, {
+                        method: 'post',
+                        body: JSON.stringify({
+                            name: sender.name,
+                            twitter_id: sender.id,
+                            twitter_id_str: sender.id_str,
+                            twitter_screen_name: sender.screen_name
+                        }),
+                        headers
+                    })
+
+                    if (response.status === 201) {
+                        customer = await response.json();
+                    }
+                }
             } catch (err) {
                 console.error(err);
             }
 
             if (customer !== null) {
-                // TODO: create a new tweet and associate it with this customer
+                // TODO: the initial tweet might contain important information about the problem
+                //       store the tweet and associate it with this customer
 
                 try {
                     // send a tweet reply, inviting the customer to a direct message conversation
-                    await twClient.replyToTweet(defaultTweet(customer.twitter_screen_name,
+                    await twClient.replyToTweet(defaultTweet(sender.screen_name,
                         this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
                 } catch (err) {
                     console.error(err);
