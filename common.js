@@ -1,0 +1,1 @@
+exports.headers = {'Application': 'application/json', 'Content-Type': 'application/json'};
