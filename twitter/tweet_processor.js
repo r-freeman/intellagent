@@ -1,11 +1,21 @@
 import fetch from "node-fetch";
 import twitterClient from './client';
 
-const twClient = twitterClient;
 const defaultTweet = require('./default_tweet');
 const {headers} = require('../common');
 
+const twClient = twitterClient;
+
 const tweetProcessor = {
+    cleanTweet: function (text) {
+        // remove url, username and whitespace from tweet
+        let url = new RegExp('https?:\/\/[www]?[a-zA-Z0-9_-]+[.a-zA-Z]+([\/a-z0-9A-Z-?=_]+)');
+        let username = new RegExp('(\@[a-zA-Z0-9_%]*)');
+        text = text.replace(url, '');
+        text = text.replace(username, '');
+        text = text.trim();
+        return text;
+    },
     deeplinkWelcomeMessage: function (recipientId, welcomeMessageId) {
         return `https://twitter.com/messages/compose?recipient_id=${recipientId}&welcome_message_id=${welcomeMessageId}`;
     },
@@ -39,7 +49,7 @@ const tweetProcessor = {
 
             try {
                 // look up customer with twitter_id (sender.id)
-                const response = await fetch(`${process.env.BASE_URL}customers?twitter_id=${sender.id}`, {
+                const response = await fetch(`${process.env.BASE_URL}customers?twitter_id_str=${sender.id_str}`, {
                     method: 'get',
                     headers
                 });
@@ -50,13 +60,13 @@ const tweetProcessor = {
                     //  no customer found with twitter_id, create one
                     const response = await fetch(`${process.env.BASE_URL}customers`, {
                         method: 'post',
+                        headers,
                         body: JSON.stringify({
                             name: sender.name,
                             twitter_id: sender.id,
                             twitter_id_str: sender.id_str,
                             twitter_screen_name: sender.screen_name
-                        }),
-                        headers
+                        })
                     })
 
                     if (response.status === 201) {
@@ -68,15 +78,34 @@ const tweetProcessor = {
             }
 
             if (customer !== null) {
-                // TODO: the initial tweet might contain important information about the problem
-                //       store the tweet and associate it with this customer
+                let tweetText = this.cleanTweet(tweet.text);
 
-                try {
-                    // send a tweet reply, inviting the customer to a direct message conversation
-                    await twClient.replyToTweet(defaultTweet(sender.screen_name,
-                        this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
-                } catch (err) {
-                    console.error(err);
+                // store the tweet in the database and associate it with the customer
+                const response = await fetch(`${process.env.BASE_URL}tweets`, {
+                    method: 'post',
+                    headers,
+                    body: JSON.stringify({
+                        tweet_id: tweet.id,
+                        tweet_id_str: tweet.id_str,
+                        customer: customer._id,
+                        text: tweetText,
+                        in_reply_to_user_id: tweet.in_reply_to_user_id,
+                        in_reply_to_user_id_str: tweet.in_reply_to_user_id_str,
+                        in_reply_to_screen_name: tweet.in_reply_to_screen_name,
+                        created_at: tweet.created_at,
+                        timestamp_ms: tweet.timestamp_ms
+                    })
+                })
+
+                // tweet was stored successfully
+                if (response.status === 201) {
+                    try {
+                        // send a tweet back to customer with a call to action button to join a private conversation
+                        await twClient.replyToTweet(defaultTweet(sender.screen_name,
+                            this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
+                    } catch (err) {
+                        console.error(err);
+                    }
                 }
             }
         } catch (err) {
