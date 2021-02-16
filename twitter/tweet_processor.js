@@ -78,7 +78,17 @@ const tweetProcessor = {
             }
 
             if (customer !== null) {
-                let tweetText = this.cleanTweet(tweet.text);
+
+                let tweetText;
+                if (tweet.truncated) {
+                    // if the tweet was shortened, get the full text
+                    const {full_text} = tweet.extended_tweet;
+                    if (typeof full_text !== 'undefined') {
+                        tweetText = this.cleanTweet(full_text);
+                    }
+                } else {
+                    tweetText = this.cleanTweet(tweet.text);
+                }
 
                 // store the tweet in the database and associate it with the customer
                 const response = await fetch(`${process.env.BASE_URL}tweets`, {
