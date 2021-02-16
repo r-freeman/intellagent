@@ -31,10 +31,10 @@ exports.validateSchema = [
         .isEmpty()
         .withMessage('text is required.')
         .bail(),
-    check('extended_text')
-        .trim()
-        .escape()
-        .optional({nullable: true}),
+    // check('extended_tweet')
+    //     .trim()
+    //     .escape()
+    //     .optional({nullable: true}),
     check('in_reply_to_user_id')
         .trim()
         .escape()
@@ -49,12 +49,12 @@ exports.validateSchema = [
         .isEmpty()
         .withMessage('in_reply_to_user_id_str is required.')
         .bail(),
-    check('in_reply_to_user_screen_name')
+    check('in_reply_to_screen_name')
         .trim()
         .escape()
         .not()
         .isEmpty()
-        .withMessage('in_reply_to_user_screen_name is required.')
+        .withMessage('in_reply_to_screen_name is required.')
         .bail(),
     check('created_at')
         .trim()

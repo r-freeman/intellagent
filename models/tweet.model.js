@@ -6,12 +6,13 @@ const TweetSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-        index: true
+        // index: true
     },
     tweet_id_str: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,10 +23,10 @@ const TweetSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    extended_text: {
-        type: String,
-        required: false
-    },
+    // extended_text: {
+    //     type: String,
+    //     required: false
+    // },
     in_reply_to_user_id: {
         type: Number,
         required: true,
@@ -34,7 +35,7 @@ const TweetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    in_reply_to_user_screen_name: {
+    in_reply_to_screen_name: {
         type: String,
         required: true
     },

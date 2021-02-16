@@ -15,15 +15,16 @@ const CustomerSchema = new mongoose.Schema({
         required: false
     },
     twitter_id: {
-        type: String,
+        type: Number,
         required: true,
         unique: true,
-        index: true
+        // index: true
     },
     twitter_id_str: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     twitter_screen_name: {
         type: String,

@@ -15,11 +15,11 @@ exports.create = async (req, res) => {
     }
 };
 
-// find customer by customer._id or twitter_id
+// find customer by customer._id or twitter_id_str
 exports.findOne = async (req, res) => {
     try {
-        const {_id, twitter_id} = req.query;
-        const filter = typeof _id !== 'undefined' ? {_id: _id} : {twitter_id: twitter_id};
+        const {_id, twitter_id_str} = req.query;
+        const filter = typeof _id !== 'undefined' ? {_id: _id} : {twitter_id_str: twitter_id_str};
 
         const customer = await Customer.findOne(filter).exec();
 
