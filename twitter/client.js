@@ -69,6 +69,9 @@ const twitterClient = (function () {
             } catch (err) {
                 console.error(err);
             }
+        },
+        createDeeplink: function (recipientId, welcomeMessageId) {
+            return `https://twitter.com/messages/compose?recipient_id=${recipientId}&welcome_message_id=${welcomeMessageId}`;
         }
     }
 })();
