@@ -8,9 +8,6 @@ exports.create = async (req, res) => {
             tweet_id_str,
             customer,
             text,
-            in_reply_to_user_id,
-            in_reply_to_user_id_str,
-            in_reply_to_screen_name,
             created_at,
             timestamp_ms
         } = req.body;
@@ -20,9 +17,6 @@ exports.create = async (req, res) => {
             tweet_id_str,
             customer,
             text,
-            in_reply_to_user_id,
-            in_reply_to_user_id_str,
-            in_reply_to_screen_name,
             created_at,
             timestamp_ms
         });
