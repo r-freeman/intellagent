@@ -6,7 +6,6 @@ const TweetSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-        // index: true
     },
     tweet_id_str: {
         type: String,
@@ -22,22 +21,6 @@ const TweetSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
-    },
-    // extended_text: {
-    //     type: String,
-    //     required: false
-    // },
-    in_reply_to_user_id: {
-        type: Number,
-        required: true,
-    },
-    in_reply_to_user_id_str: {
-        type: String,
-        required: true
-    },
-    in_reply_to_screen_name: {
-        type: String,
-        required: true
     },
     created_at: {
         type: String,
