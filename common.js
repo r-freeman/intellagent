@@ -1,1 +1,1 @@
-exports.headers = {'Application': 'application/json', 'Content-Type': 'application/json'};
+exports.headers = {'Accept': 'application/json', 'Content-Type': 'application/json'};
