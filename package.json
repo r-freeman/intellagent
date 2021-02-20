@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bson": "^4.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
+    "faker": "^5.4.0",
     "mongo-seeding": "^3.5.0",
     "mongo-seeding-cli": "^3.5.0",
     "mongoose": "^5.11.16",
