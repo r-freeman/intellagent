@@ -1,3 +1,4 @@
+const bson = require('bson');
 const faker = require('faker');
 const roles = require('../1-roles/roles');
 
@@ -16,7 +17,7 @@ function createUsers(numUsers, role) {
         user.email = faker.internet.exampleEmail();
         user.phone = faker.phone.phoneNumber();
         user.password = 'secret';
-        user.role = role._id;
+        user.role = new bson.ObjectId(role._id);
 
         users.push(user);
     }
