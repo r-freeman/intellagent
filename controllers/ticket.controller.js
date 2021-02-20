@@ -15,7 +15,7 @@ exports.create = async (req, res) => {
     }
 };
 
-// find customer by customer._id or by reference
+// find ticket by ticket._id or by reference
 exports.findOne = async (req, res) => {
     try {
         const {_id, reference} = req.query;
