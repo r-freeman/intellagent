@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongooseConnect = require('./mongoose_connect');
 const {Autohook} = require('twitter-autohook');
 
 const routes = require('./routes/index.js');
@@ -18,22 +18,6 @@ app.use('/api/v1', routes);
 app.listen(PORT, () => {
     console.log(`Express server listening on http://localhost:${PORT}`);
 });
-
-// connect to mongodb
-(async function () {
-    try {
-        let mongoDb = process.env.LOCAL_URI;
-        await mongoose.connect(mongoDb, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-
-        console.log(`Connected to ${mongoDb}`);
-    } catch (e) {
-        console.error(e);
-        process.exit(1);
-    }
-})();
 
 // initialise web hooks
 // (async start => {
