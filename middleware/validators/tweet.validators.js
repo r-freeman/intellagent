@@ -17,13 +17,6 @@ exports.validateSchema = [
         .isEmpty()
         .withMessage('tweet_id_str is required.')
         .bail(),
-    check('customer')
-        .trim()
-        .escape()
-        .not()
-        .isEmpty()
-        .withMessage('customer is required.')
-        .bail(),
     check('text')
         .trim()
         .escape()
@@ -31,19 +24,12 @@ exports.validateSchema = [
         .isEmpty()
         .withMessage('text is required.')
         .bail(),
-    check('created_at')
+    check('customer')
         .trim()
         .escape()
         .not()
         .isEmpty()
-        .withMessage('created_at is required.')
-        .bail(),
-    check('timestamp_ms')
-        .trim()
-        .escape()
-        .not()
-        .isEmpty()
-        .withMessage('timestamp_ms is required.')
+        .withMessage('customer is required.')
         .bail(),
     (req, res, next) => {
         const errors = validationResult(req);
