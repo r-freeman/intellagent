@@ -7,18 +7,14 @@ exports.create = async (req, res) => {
             tweet_id,
             tweet_id_str,
             customer,
-            text,
-            created_at,
-            timestamp_ms
+            text
         } = req.body;
 
         const tweet = await Tweet.create({
             tweet_id,
             tweet_id_str,
             customer,
-            text,
-            created_at,
-            timestamp_ms
+            text
         });
 
         return res.status(201).send(tweet);

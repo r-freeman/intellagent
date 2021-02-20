@@ -21,16 +21,8 @@ const TweetSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true,
-    },
-    created_at: {
-        type: String,
-        required: true
-    },
-    timestamp_ms: {
-        type: String,
-        required: true
     }
-});
+}, {timestamps: true});
 
 const Tweet = mongoose.model('Tweet', TweetSchema);
 
