@@ -12,14 +12,14 @@ const TweetSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    text: {
+        type: String,
+        required: true,
+    },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer',
         required: true
-    },
-    text: {
-        type: String,
-        required: true,
     }
 }, {timestamps: true});
 
