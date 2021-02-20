@@ -22,8 +22,7 @@ const CustomerSchema = new mongoose.Schema({
     twitter_id_str: {
         type: String,
         required: true,
-        unique: true,
-        index: true
+        unique: true
     },
     twitter_screen_name: {
         type: String,

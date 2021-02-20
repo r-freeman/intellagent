@@ -10,8 +10,7 @@ const TweetSchema = new mongoose.Schema({
     tweet_id_str: {
         type: String,
         required: true,
-        unique: true,
-        index: true
+        unique: true
     },
     customer: {
         type: mongoose.Schema.Types.ObjectId,
