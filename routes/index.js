@@ -4,9 +4,11 @@ const router = express.Router();
 const HookRoutes = require('./hook.routes');
 const CustomerRoutes = require('./customer.routes');
 const TweetRoutes = require('./tweet.routes');
+const TicketRoutes = require('./ticket.routes');
 
 router.use('/hook', HookRoutes);
 router.use('/customers', CustomerRoutes);
 router.use('/tweets', TweetRoutes);
+router.use('/tickets', TicketRoutes);
 
 module.exports = router;
