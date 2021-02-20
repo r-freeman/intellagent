@@ -1,7 +1,7 @@
 const {body, check, validationResult} = require('express-validator');
 const Tweet = require('../../models/tweet.model');
 
-// validate according to customer schema
+// validate according to tweet schema
 exports.validateSchema = [
     check('tweet_id')
         .trim()
