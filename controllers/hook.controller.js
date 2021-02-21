@@ -12,7 +12,8 @@ exports.post = async (req, res) => {
         }
 
         res.send('OK');
-    } catch (e) {
-        console.error(e);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send();
     }
 }
