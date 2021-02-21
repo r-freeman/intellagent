@@ -16,11 +16,12 @@ exports.findOne = async (req, res) => {
                     },
                     {
                         path: 'team',
+                        select: '-tags',
                         model: Team,
-                        populate: [{
-                            path: 'tags',
-                            model: Tag
-                        }]
+                        // populate: [{
+                        //     path: 'tags',
+                        //     model: Tag
+                        // }]
                     }
                 ])
                 .select('name email phone').exec();
@@ -47,11 +48,12 @@ exports.findAll = async (req, res) => {
                 },
                 {
                     path: 'team',
+                    select: '-tags',
                     model: Team,
-                    populate: [{
-                        path: 'tags',
-                        model: Tag
-                    }]
+                    // populate: [{
+                    //     path: 'tags',
+                    //     model: Tag
+                    // }]
                 }
             ])
             .select('name email phone')
