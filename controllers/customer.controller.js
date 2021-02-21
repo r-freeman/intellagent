@@ -12,23 +12,33 @@ exports.create = async (req, res) => {
         return res.status(201).send(customer);
     } catch (err) {
         console.error(err);
+        return res.status(500).send();
     }
 };
 
-// find customer by customer._id or twitter_id_str
-exports.findOne = async (req, res) => {
+// finds a customer from _id or twitter_id_str, else returns array of all customers
+exports.findOneOrAll = async (req, res) => {
     try {
-        const {_id, twitter_id_str} = req.query;
-        const filter = typeof _id !== 'undefined' ? {_id: _id} : {twitter_id_str: twitter_id_str};
+        if (Object.keys(req.query).length !== 0) {
+            // try to locate customer with either _id or twitter_id_str params from the query string
+            const {_id, twitter_id_str} = req.query;
+            const filter = (typeof _id !== 'undefined' && _id.length === 24) ? {_id: _id} : {twitter_id_str: twitter_id_str};
+            const customer = await Customer.findOne(filter).exec();
 
-        const customer = await Customer.findOne(filter).exec();
-
-        if (customer !== null) {
-            return res.status(200).send(customer);
+            if (customer !== null) {
+                return res.status(200).send(customer);
+            } else {
+                return res.status(404).send({});
+            }
         } else {
-            return res.status(404).send({});
+            // return all customers
+            let customers = [];
+            customers = await Customer.find().exec();
+
+            return res.status(200).send(customers);
         }
     } catch (err) {
         console.error(err);
+        return res.status(500).send();
     }
 };
