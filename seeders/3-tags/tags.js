@@ -1,6 +1,6 @@
 const tagNames = [
     'feedback', 'order', 'contact', 'payment', 'cancellation_fee',
-    'account', 'invoices', 'refunds', 'deliver', 'newsletter', 'shipping'
+    'account', 'invoices', 'refunds', 'delivery', 'newsletter', 'shipping'
 ];
 
 const tags = tagNames.map(tag => {
