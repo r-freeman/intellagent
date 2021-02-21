@@ -42,3 +42,14 @@ exports.findOne = async (req, res) => {
         return res.status(500).send();
     }
 };
+
+exports.findAll = async (req, res) => {
+    try {
+        let tweets = await Tweet.find().populate('customer').exec();
+
+        return res.status(200).send(tweets);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send();
+    }
+};
