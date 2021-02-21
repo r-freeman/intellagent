@@ -16,8 +16,8 @@ exports.create = async (req, res) => {
     }
 };
 
-// finds a customer from _id or twitter_id_str, else returns array of all customers
-exports.findOneOrAll = async (req, res) => {
+// find customer by _id or twitter_id_str
+exports.findOne = async (req, res) => {
     try {
         if (Object.keys(req.query).length !== 0) {
             // try to locate customer with either _id or twitter_id_str params from the query string
@@ -27,18 +27,19 @@ exports.findOneOrAll = async (req, res) => {
 
             if (customer !== null) {
                 return res.status(200).send(customer);
-            } else {
-                return res.status(404).send({});
             }
-        } else {
-            // return all customers
-            let customers = [];
-            customers = await Customer.find().exec();
-
-            return res.status(200).send(customers);
         }
+
+        return res.status(404).send({});
     } catch (err) {
         console.error(err);
         return res.status(500).send();
     }
+};
+
+// return all customers
+exports.findAll = async (req, res) => {
+    let customers = await Customer.find().exec();
+
+    return res.status(200).send(customers);
 };
