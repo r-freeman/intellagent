@@ -39,7 +39,12 @@ exports.findOne = async (req, res) => {
 
 // return all customers
 exports.findAll = async (req, res) => {
-    let customers = await Customer.find().exec();
+    try {
+        let customers = await Customer.find().exec();
 
-    return res.status(200).send(customers);
+        return res.status(200).send(customers);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send();
+    }
 };
