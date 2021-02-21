@@ -12,6 +12,16 @@ const TicketSchema = new mongoose.Schema({
         type: String,
         enum: ['unassigned', 'open', 'closed'],
         default: 'unassigned'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
+    },
+    customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer',
+        required: true
     }
 }, {timestamps: true});
 
