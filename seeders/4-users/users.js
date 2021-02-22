@@ -22,10 +22,7 @@ function createUsers(numUsers, role, team = null) {
         user.phone = faker.phone.phoneNumber();
         user.password = '$2b$10$liAPhwoKUFg7ij55UwLdm.AUSCEfCMQME/oxtophd5n58shY0KNq2';
         user.role = role._id;
-
-        if (team) {
-            user.team = team._id;
-        }
+        user.team = team ? team._id : null;
 
         users.push(user);
     }

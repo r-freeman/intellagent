@@ -27,6 +27,8 @@ const UserSchema = new mongoose.Schema({
     team: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Team',
+        required: false,
+        default: null
     }
 });
 
