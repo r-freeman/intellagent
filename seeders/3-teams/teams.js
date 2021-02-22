@@ -13,7 +13,7 @@ const billingTagIds = filterTagIds(['payment', 'refunds', 'cancellation_fee', 'i
 const fulfillmentTagIds = filterTagIds(['shipping', 'delivery', 'order']);
 
 // get the tag ids relating to general team
-const generalTagIds = filterTagIds(['account', 'feedback', 'newsletter', 'contact']);
+const accountsTagIds = filterTagIds(['account', 'feedback', 'newsletter', 'contact']);
 
 const teams = [
     {
@@ -30,9 +30,9 @@ const teams = [
     },
     {
         _id: new bson.ObjectId('6032e937869b74468c21ffe2'),
-        name: 'general',
-        description: 'This is the general team',
-        tags: generalTagIds
+        name: 'accounts',
+        description: 'This is the accounts team',
+        tags: accountsTagIds
     }
 ];
 

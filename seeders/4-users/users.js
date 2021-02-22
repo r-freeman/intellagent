@@ -3,11 +3,12 @@ const roles = require('../1-roles/roles');
 const teams = require('../3-teams/teams');
 
 const [agent, manager, admin] = roles;
-const [billingTeam, fulfillmentTeam, generalTeam] = teams;
+const [billingTeam, fulfillmentTeam, accountsTeam] = teams;
 
 const numBillingAgents = 10;
 const numFulfillmentAgents = 10;
-const numGeneralAgents = 10;
+const numAccountsAgents = 10;
+
 const numManagers = 5;
 const numAdmins = 1;
 
@@ -31,7 +32,7 @@ function createUsers(numUsers, role, team = null) {
 // invoke createUsers for each role
 createUsers(numBillingAgents, agent, billingTeam);
 createUsers(numFulfillmentAgents, agent, fulfillmentTeam);
-createUsers(numGeneralAgents, agent, generalTeam);
+createUsers(numAccountsAgents, agent, accountsTeam);
 
 createUsers(numManagers, manager);
 createUsers(numAdmins, admin);
