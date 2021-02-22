@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const mongooseConnect = require('./mongoose_connect');
 const webhooks = require('./twitter/webhooks');
@@ -11,6 +12,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use('/api/v1', routes);
+
+// serve the front end from react build directory
+app.use(express.static(path.join(__dirname, './client/build')));
 
 // return not found error if route does not exist
 app.use(function (req, res, next) {
