@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "client": "npm start --prefix ./client",
-    "dev": "concurrently \"nodenv --exec nodemon server.js -- --exec babel-node -e js\" \"npm run client\""
+    "start": "concurrently \"nodenv --exec nodemon server.js -- --exec babel-node -e js\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
