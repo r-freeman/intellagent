@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const mongooseConnect = require('./mongoose_connect');
 const webhooks = require('./twitter/webhooks');
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/v1', routes);
 
@@ -28,3 +30,4 @@ app.use(function (req, res, next) {
 app.listen(PORT, () => {
     console.log(`Express server listening on http://localhost:${PORT}`);
 });
+

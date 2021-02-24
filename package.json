@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "nodenv --exec nodemon server.js -- --exec babel-node -e js"
+    "client": "npm start --prefix ./client",
+    "dev": "concurrently \"nodenv --exec nodemon server.js -- --exec babel-node -e js\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -12,12 +13,14 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^6.0.0",
     "ngrok": "^3.4.0",
     "node-env-run": "^4.0.2"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "bson": "^4.2.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "faker": "^5.4.0",
