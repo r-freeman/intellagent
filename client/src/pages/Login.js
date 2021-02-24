@@ -1,14 +1,14 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import logo from '../svg/logo.svg';
 
 function Login() {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:-mt-24 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="py-8 px-4 sm:px-10 shadow rounded-lg bg-white">
-                    <div className="mx-auto w-16 h-16">
-                        <Logo/>
-                    </div>
+                    <img src={logo}
+                         className="mx-auto h-16 w-auto"
+                         alt="Intellagent"/>
                     <div className="my-8">
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                             Log in to your account
