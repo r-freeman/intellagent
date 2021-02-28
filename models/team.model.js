@@ -10,6 +10,11 @@ const TeamSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    colour: {
+        type: String,
+        required: false,
+        default: 'blue'
+    },
     tags: [
         {
             type: mongoose.Schema.Types.ObjectId,

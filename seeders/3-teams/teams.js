@@ -18,20 +18,23 @@ const accountsTagIds = filterTagIds(['account', 'feedback', 'newsletter', 'conta
 const teams = [
     {
         _id: new bson.ObjectId('6032e937869b74468c21ffe0'),
-        name: 'billing',
+        name: 'Billing',
         description: 'This is the billing team',
+        colour: 'indigo',
         tags: billingTagIds
     },
     {
         _id: new bson.ObjectId('6032e937869b74468c21ffe1'),
-        name: 'fulfillment',
+        name: 'Fulfillment',
         description: 'This is the fulfillment team',
+        colour: 'green',
         tags: fulfillmentTagIds
     },
     {
         _id: new bson.ObjectId('6032e937869b74468c21ffe2'),
-        name: 'accounts',
+        name: 'Accounts',
         description: 'This is the accounts team',
+        colour: 'yellow',
         tags: accountsTagIds
     }
 ];
