@@ -12,6 +12,10 @@ const TagSchema = new mongoose.Schema({
     }
 });
 
+TagSchema.statics.findByName = async function (name) {
+    return await this.findOne({name: name.toLowerCase()}).exec();
+};
+
 const Tag = mongoose.model('Tag', TagSchema);
 
 module.exports = Tag;
