@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import Login from './pages/Login';
 
 function App() {
-    const [user, setUser] = useState(null);
+    const {user} = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-
-        setUser(user);
-    }, []);
+    console.log(user);
 
     return (
         <div className="App">
