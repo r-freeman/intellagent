@@ -1,5 +1,6 @@
+const {validatePassword, generateHashSalt, issueJwt} = require('../passport/helpers');
 const User = require('../models/user.model');
-const {validatePassword, issueJwt} = require('../passport/helpers');
+const Role = require('../models/role.model');
 
 exports.login = async (req, res) => {
     try {
@@ -14,9 +15,11 @@ exports.login = async (req, res) => {
 
         if (validPassword) {
             const {token} = issueJwt(user);
-            const {_id, name, email} = user;
 
-            return res.status(200).send({_id, name, email, token});
+            if (token) {
+                const {_id, name, email} = user;
+                return res.status(200).send({_id, name, email, token});
+            }
         }
 
         return res.status(401).send({error: 'Unauthorised'});
@@ -28,8 +31,30 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
+        const {email, name, password} = req.body;
+        const {salt, hash} = generateHashSalt(password);
+        const userExists = await User.findByEmail(email);
+
+        if (userExists) return res.status(422).send({error: 'User already exists'});
+
+        // create a new user and assign agent role
+        const agentRole = await Role.findByName('agent');
+        const newUser = new User({name, email, hash, salt, role: agentRole._id});
+
+        const user = await newUser.save();
+
+        // retrieve the token
+        const {token} = issueJwt(user);
+
+        if (token) {
+            const {_id, name, email} = user;
+            return res.status(200).send({_id, name, email, token});
+        }
+
         return res.status(201).send();
-    } catch (err) {
+
+    } catch
+        (err) {
         console.error(err);
         return res.status(500).send();
     }
