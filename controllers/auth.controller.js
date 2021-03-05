@@ -48,11 +48,10 @@ exports.register = async (req, res) => {
 
         if (token) {
             const {_id, name, email} = user;
-            return res.status(200).send({_id, name, email, token});
+            return res.status(201).send({_id, name, email, token});
         }
 
-        return res.status(201).send();
-
+        return res.status(422).send({error: 'Unprocessable entity'});
     } catch
         (err) {
         console.error(err);
