@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const SALT_WORK_FACTOR = 10;
+const {generateHashSalt} = require('../passport/helpers');
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -15,7 +14,11 @@ const UserSchema = new mongoose.Schema({
     phone: {
         type: String
     },
-    password: {
+    hash: {
+        type: String,
+        required: true
+    },
+    salt: {
         type: String,
         required: true
     },
@@ -40,17 +43,17 @@ UserSchema.pre('save', function (next) {
         return next();
     }
 
-    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-        if (err) return next(err);
+    const {salt, hash} = generateHashSalt(user.password);
 
-        bcrypt.hash(user.password, salt, function (err, hash) {
-            if (err) return next(err);
+    user.hash = hash;
+    user.salt = salt;
 
-            user.password = hash;
-            next();
-        });
-    });
+    next();
 });
+
+UserSchema.statics.findByEmail = async function (email) {
+    return await this.findOne({email}).select('-team -role').exec();
+};
 
 const User = mongoose.model('User', UserSchema);
 

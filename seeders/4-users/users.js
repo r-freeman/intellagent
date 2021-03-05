@@ -1,6 +1,7 @@
 const faker = require('faker');
 const roles = require('../1-roles/roles');
 const teams = require('../3-teams/teams');
+const {generateHashSalt} = require('../../passport/helpers');
 
 const [agent, manager, admin] = roles;
 const [billingTeam, fulfillmentTeam, accountsTeam] = teams;
@@ -17,11 +18,13 @@ const users = [];
 function createUsers(numUsers, role, team = null) {
     for (let i = 0; i < numUsers; i++) {
         let user = {};
+        const {salt, hash} = generateHashSalt('secret');
 
         user.name = faker.name.findName();
         user.email = faker.internet.exampleEmail();
         user.phone = faker.phone.phoneNumber();
-        user.password = '$2b$10$liAPhwoKUFg7ij55UwLdm.AUSCEfCMQME/oxtophd5n58shY0KNq2';
+        user.hash = hash;
+        user.salt = salt;
         user.role = role._id;
         user.team = team ? team._id : null;
 

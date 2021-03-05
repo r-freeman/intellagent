@@ -14,6 +14,6 @@ const fs = require('fs');
         }
     });
 
-    fs.writeFileSync('./id_rsa_pub.pem', keyPair.publicKey);
-    fs.writeFileSync('./id_rsa_priv.pem', keyPair.privateKey);
+    fs.writeFileSync('id_rsa_pub.pem', keyPair.publicKey);
+    fs.writeFileSync('id_rsa_priv.pem', keyPair.privateKey);
 }());
