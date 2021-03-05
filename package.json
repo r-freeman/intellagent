@@ -26,6 +26,7 @@
     "bson": "^4.2.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.16",
