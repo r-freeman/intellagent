@@ -39,6 +39,7 @@ app.use(passport.initialize());
 app.use('/api/v1', jwt({
     secret: PUB_KEY,
     algorithms: ['RS256']
+    // applies to all routes except where path contains auth
 }).unless({path: new RegExp('/auth/', 'i')}), routes);
 
 // custom middleware
