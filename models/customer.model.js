@@ -31,6 +31,18 @@ const CustomerSchema = new mongoose.Schema({
     }
 });
 
+CustomerSchema.statics.findByEmail = async function (email) {
+    return await this.findOne({email}).exec();
+};
+
+CustomerSchema.statics.findByTwitterId = async function (twitter_id_str) {
+    return await this.findOne({twitter_id_str}).exec();
+};
+
+CustomerSchema.statics.findByTwitterScreenName = async function (twitter_screen_name) {
+    return await this.findOne({twitter_screen_name}).exec();
+};
+
 const Customer = mongoose.model('Customer', CustomerSchema);
 
 module.exports = Customer;
