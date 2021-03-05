@@ -4,7 +4,7 @@ import passportJwt from 'passport-jwt';
 const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
 
-import User from '../models/tag.model';
+import User from '../models/user.model';
 
 const PUB_KEY = fs.readFileSync('id_rsa_pub.pem', 'utf8');
 
