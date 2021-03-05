@@ -4,50 +4,46 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const mongooseConnect = require('./mongoose_connect');
-
-import passport from 'passport';
-import passportUseStrategy from './passport';
 // const webhooks = require('./twitter/webhooks');
 
-passportUseStrategy(passport);
+// custom middleware modules
+const unauthorised = require('./middleware/error_handling/unauthorised');
+const notFound = require('./middleware/router_level/not_found');
 
+// setting up passport
+import passport from 'passport';
+import passportUseStrategy from './passport';
+
+passportUseStrategy(passport);
 const PUB_KEY = fs.readFileSync('id_rsa_pub.pem', 'utf8');
 
-const routes = require('./routes/index.js');
-
+// initialise the app and port
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(cors());
-app.use(passport.initialize());
+// contains all the routes
+const routes = require('./routes');
 
 // serve the front end from react build directory
 app.use(express.static(path.join(__dirname, './client/build')));
 
-// middleware for protecting all routes except auth routes
+// built-in middleware
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+// third-party middleware
+app.use(cors());
+app.use(passport.initialize());
+
+// third-party middleware, checks for valid bearer token on protected routes
 app.use('/api/v1', jwt({
     secret: PUB_KEY,
     algorithms: ['RS256']
 }).unless({path: new RegExp('/auth/', 'i')}), routes);
 
-// custom error handler for jwt route guard
-app.use(function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).send({error: 'Unauthorised'});
-    }
-    // next();
-})
-
-// return not found error if route does not exist
-app.use(function (req, res, next) {
-    if (!req.route) {
-        res.status(404).send();
-        return;
-    }
-    next();
-});
+// custom middleware
+app.use(unauthorised());
+app.use(notFound());
 
 app.listen(PORT, () => {
     console.log(`Express server listening on http://localhost:${PORT}`);
