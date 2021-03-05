@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const nanoId = customAlphabet('0123456789', 8);
 
 const TicketSchema = new mongoose.Schema({
-    reference: {
-        type: String,
-        unique: true
-    },
     status: {
         type: String,
         enum: ['unassigned', 'open', 'closed'],
@@ -23,6 +19,14 @@ const TicketSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer',
         required: true
+    },
+    reference: {
+        type: String,
+        unique: true
+    },
+    issue_type: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tag'
     }
 }, {timestamps: true});
 
@@ -31,6 +35,10 @@ TicketSchema.pre('save', function (next) {
     this.reference = nanoId();
     next();
 });
+
+TicketSchema.statics.findByReference = async function (reference) {
+    return await this.findOne({reference}).exec();
+};
 
 const Ticket = mongoose.model('Ticket', TicketSchema);
 
