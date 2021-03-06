@@ -1,24 +1,19 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 import twitterClient from './client';
+import cleanTweet from './helpers';
+
+import Customer from '../models/customer.model';
+import Tweet from '../models/tweet.model';
+import Tag from '../models/tag.model';
+
+import welcomeMessage from './welcome_message';
 
 const defaultTweet = require('./default_tweet');
-const {headers} = require('../common');
 
 const twClient = twitterClient;
+const classifierUrl = process.env.CLASSIFIER_URL;
 
 const tweetProcessor = {
-    cleanTweet: function (text) {
-        // remove url, username and whitespace from tweet
-        let url = new RegExp('https?:\/\/[www]?[a-zA-Z0-9_-]+[.a-zA-Z]+([\/a-z0-9A-Z-?=_]+)');
-        let username = new RegExp('(\@[a-zA-Z0-9_%]*)');
-        text = text.replace(url, '');
-        text = text.replace(username, '');
-        text = text.trim();
-        return text;
-    },
-    deeplinkWelcomeMessage: function (recipientId, welcomeMessageId) {
-        return `https://twitter.com/messages/compose?recipient_id=${recipientId}&welcome_message_id=${welcomeMessageId}`;
-    },
     process: async function (event) {
         try {
             // get our user
@@ -32,10 +27,10 @@ const tweetProcessor = {
 
             // get the sender id, name and screen name from the tweet
             const sender = {
-                id: tweet.user.id,
-                id_str: tweet.user.id_str,
                 name: tweet.user.name,
-                screen_name: tweet.user.screen_name
+                twitter_id: tweet.user.id,
+                twitter_id_str: tweet.user.id_str,
+                twitter_screen_name: tweet.user.screen_name
             };
 
             // return if the sender is the same as our user
@@ -44,78 +39,59 @@ const tweetProcessor = {
             // we're only interested in tweets sent to us, not replies to tweets
             if (tweet.in_reply_to_status_id !== null) return;
 
-            console.log(`Tweet received from @${sender.screen_name}`);
+            console.log(`Tweet received from @${sender.twitter_screen_name}`);
             console.log(tweet);
 
-            try {
-                // look up customer with twitter_id (sender.id)
-                const response = await fetch(`${process.env.BASE_URL}customers?twitter_id_str=${sender.id_str}`, {
-                    method: 'get',
-                    headers
+            // retrieve the customer by twitter id
+            customer = await Customer.findByTwitterId(sender.twitter_id_str);
+            if (customer === null) {
+                // create customer if it doesn't exist
+                customer = await Customer.create({
+                    name: sender.name,
+                    twitter_id: sender.twitter_id,
+                    twitter_id_str: sender.twitter_id_str,
+                    twitter_screen_name: sender.twitter_screen_name
                 });
-
-                if (response.status === 200) {
-                    customer = await response.json();
-                } else if (response.status === 404) {
-                    //  no customer found with twitter_id, create one
-                    const response = await fetch(`${process.env.BASE_URL}customers`, {
-                        method: 'post',
-                        headers,
-                        body: JSON.stringify({
-                            name: sender.name,
-                            twitter_id: sender.id,
-                            twitter_id_str: sender.id_str,
-                            twitter_screen_name: sender.screen_name
-                        })
-                    })
-
-                    if (response.status === 201) {
-                        customer = await response.json();
-                    }
-                }
-            } catch (err) {
-                console.error(err);
             }
 
-            if (customer !== null) {
-
-                let tweetText;
-                if (tweet.truncated) {
-                    // if the tweet was shortened, get the full text
-                    const {full_text} = tweet.extended_tweet;
-                    if (typeof full_text !== 'undefined') {
-                        tweetText = this.cleanTweet(full_text);
-                    }
-                } else {
-                    tweetText = this.cleanTweet(tweet.text);
+            let tweetText;
+            if (tweet.truncated) {
+                // if the tweet was shortened, get the full text
+                const {full_text} = tweet.extended_tweet;
+                if (typeof full_text !== 'undefined') {
+                    // remove user mentions, hashtags etc from the tweet and leave only text
+                    tweetText = cleanTweet(full_text);
                 }
+            } else {
+                tweetText = cleanTweet(tweet.text);
+            }
 
-                // store the tweet in the database and associate it with the customer
-                const response = await fetch(`${process.env.BASE_URL}tweets`, {
-                    method: 'post',
-                    headers,
-                    body: JSON.stringify({
-                        tweet_id: tweet.id,
-                        tweet_id_str: tweet.id_str,
-                        customer: customer._id,
-                        text: tweetText,
-                        in_reply_to_user_id: tweet.in_reply_to_user_id,
-                        in_reply_to_user_id_str: tweet.in_reply_to_user_id_str,
-                        in_reply_to_screen_name: tweet.in_reply_to_screen_name,
-                        created_at: tweet.created_at,
-                        timestamp_ms: tweet.timestamp_ms
-                    })
-                })
+            // store the tweet and associate it with this customer
+            const newTweet = await Tweet.create({
+                tweet_id: tweet.id,
+                tweet_id_str: tweet.id_str,
+                text: tweetText,
+                customer: customer._id
+            });
 
-                // tweet was stored successfully
-                if (response.status === 201) {
-                    try {
-                        // send a tweet back to customer with a call to action button to join a private conversation
-                        await twClient.replyToTweet(defaultTweet(sender.screen_name,
-                            this.deeplinkWelcomeMessage(user.id_str, require('./default_welcome_message_id'))), tweet.id_str);
-                    } catch (err) {
-                        console.error(err);
-                    }
+            // make a request to classify the tweet
+            const classifyTweet = await fetch(classifierUrl, {
+                method: 'post',
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                body: JSON.stringify({'utterance': newTweet.text})
+            });
+
+            if (classifyTweet.status === 200) {
+                const classification = await classifyTweet.json();
+
+                const tag = await Tag.findByName(classification.category);
+
+                // create a welcome message
+                const newWelcomeMessage = await welcomeMessage.create({sender, tweetText, tag});
+
+                if (newWelcomeMessage !== null) {
+                    // reply to the customer's tweet and display a call to action to join a private conversation
+                    await twClient.replyToTweet(defaultTweet(sender.twitter_screen_name, twClient.createDeeplink(user.id_str, newWelcomeMessage.id)), tweet.id_str);
                 }
             }
         } catch (err) {

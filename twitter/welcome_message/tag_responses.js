@@ -1,14 +1,14 @@
-// maps classification categories to text responses
+// maps tags to plain text responses (forms part of the welcome message text)
 module.exports = {
-    'ACCOUNT': 'this relates to an account problem.',
-    'INVOICES': 'this is a billing issue.',
-    'FEEDBACK': 'you would like to leave some feedback.',
-    'ORDER': 'the problem relates to an existing order.',
-    'REFUNDS': 'you are inquiring about a refund.',
-    'DELIVERY': 'you want to know the status of your delivery.',
-    'NEWSLETTER': 'you are looking for information about our newsletter.',
-    'SHIPPING': 'you have a question related to shipping.',
-    'CONTACT': 'you would like to speak to a human.',
-    'PAYMENT': 'your question relates to payments.',
-    'CANCELLATION_FEE': 'you have a question about the cancellation fee.'
+    'account': 'this relates to an account problem.',
+    'invoices': 'this is a billing issue.',
+    'feedback': 'you would like to leave some feedback.',
+    'order': 'the problem relates to an existing order.',
+    'refunds': 'you are inquiring about a refund.',
+    'delivery': 'you want to know the status of your delivery.',
+    'newsletter': 'you are looking for information about our newsletter.',
+    'shipping': 'you have a question related to shipping.',
+    'contact': 'you would like to speak to a human.',
+    'payment': 'your question relates to payments.',
+    'cancellation_fee': 'you have a question about the cancellation fee.'
 }
