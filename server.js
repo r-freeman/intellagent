@@ -4,16 +4,16 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const mongooseConnect = require('./mongoose_connect');
-// const webhooks = require('./twitter/webhooks');
+const webhooks = require('./twitter/webhooks');
+
+import passport from 'passport';
+import passportUseStrategy from './passport';
 
 // custom middleware modules
 const unauthorised = require('./middleware/error_handling/unauthorised');
 const notFound = require('./middleware/router_level/not_found');
 
 // setting up passport
-import passport from 'passport';
-import passportUseStrategy from './passport';
-
 passportUseStrategy(passport);
 const PUB_KEY = fs.readFileSync('id_rsa_pub.pem', 'utf8');
 
