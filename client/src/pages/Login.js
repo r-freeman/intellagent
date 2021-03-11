@@ -3,7 +3,7 @@ import {NavLink, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import actions from '../redux/actions';
-import logo from '../svg/logo.svg';
+import logo from '../assets/svg/logo.svg';
 
 function Login() {
     const [email, setEmail] = useState("name@example.com");

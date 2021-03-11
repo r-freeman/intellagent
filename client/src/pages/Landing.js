@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from '../components/Nav';
 import Hero from '../components/Hero';
 
-import apple from '../svg/apple.svg';
+import apple from '../assets/svg/apple.svg';
 import grayHairedMan from '../assets/images/gray-haired-man.jpg';
 
 function Landing() {

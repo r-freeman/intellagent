@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Transition} from '@headlessui/react';
-import logo from '../svg/logo.svg';
+import logo from '../assets/svg/logo.svg';
 
 function Nav() {
     const [productMenu, setProductMenu] = useState(false);
