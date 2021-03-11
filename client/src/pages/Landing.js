@@ -7,7 +7,7 @@ import grayHairedMan from '../assets/images/gray-haired-man.jpg';
 
 function Landing() {
     return (
-        <div className="bg-white">
+        <div className="bg-white mb-24">
             <Nav/>
             <main className="-mt-20 sm:mt-0">
                 <Hero/>
@@ -36,7 +36,7 @@ function Landing() {
                                     <img className="absolute inset-0 h-full w-full object-cover"
                                          src={grayHairedMan}
                                          alt=""/>
-                                    <div className="absolute inset-0 bg-blue-300" style={{mixBlendMode: 'multiply'}}/>
+                                    <div className="absolute inset-0 bg-blue-400" style={{mixBlendMode: 'multiply'}}/>
                                     <div
                                         className="absolute inset-0 bg-gradient-to-t from-blue-500 via-blue-500 opacity-80"/>
                                     <div className="relative px-8">
@@ -94,6 +94,35 @@ function Landing() {
                                         vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec,
                                         a. Morbi enim fermentum lacus in. Viverra.
                                     </p>
+                                </div>
+                            </div>
+
+                            <div className="mt-10">
+                                <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
+                                    <div className="border-t-2 border-gray-100 pt-6">
+                                        <dt className="text-base font-medium text-gray-500">Founded</dt>
+                                        <dd className="text-3xl font-extrabold tracking-tight text-gray-900">2021</dd>
+                                    </div>
+
+                                    <div className="border-t-2 border-gray-100 pt-6">
+                                        <dt className="text-base font-medium text-gray-500">Employees</dt>
+                                        <dd className="text-3xl font-extrabold tracking-tight text-gray-900">5</dd>
+                                    </div>
+
+                                    <div className="border-t-2 border-gray-100 pt-6">
+                                        <dt className="text-base font-medium text-gray-500">Beta Users</dt>
+                                        <dd className="text-3xl font-extrabold tracking-tight text-gray-900">521</dd>
+                                    </div>
+
+                                    <div className="border-t-2 border-gray-100 pt-6">
+                                        <dt className="text-base font-medium text-gray-500">Raised</dt>
+                                        <dd className="text-3xl font-extrabold tracking-tight text-gray-900">$25M</dd>
+                                    </div>
+                                </dl>
+                                <div className="mt-10">
+                                    <a href="#" className="text-base font-medium text-blue-500 hover:text-blue-600">
+                                        Learn more about how we're changing the world &rarr;
+                                    </a>
                                 </div>
                             </div>
                         </div>
