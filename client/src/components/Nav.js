@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Transition} from '@headlessui/react';
+import {useSelector} from 'react-redux';
+
 import logo from '../assets/svg/logo.svg';
 
 function Nav() {
+    const {isLoggedIn} = useSelector(state => state.auth);
     const [productMenu, setProductMenu] = useState(false);
     const [moreMenu, setMoreMenu] = useState(false);
 
@@ -16,7 +19,7 @@ function Nav() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
                         <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <a href="#">
+                            <a href="/">
                                 <span className="sr-only">Intellagent</span>
                                 <img src={logo}
                                      className="h-8 w-auto sm:h-10"
@@ -71,7 +74,7 @@ function Nav() {
                                         <div
                                             className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                             <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -92,7 +95,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -112,7 +115,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -132,7 +135,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -153,7 +156,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -177,7 +180,7 @@ function Nav() {
                                             <div
                                                 className="px-5 py-5 bg-gray-50 space-y-6 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
                                                 <div className="flow-root">
-                                                    <a href="#"
+                                                    <a href="/"
                                                        className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">
                                                         <svg className="flex-shrink-0 h-6 w-6 text-gray-400"
                                                              xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -195,7 +198,7 @@ function Nav() {
                                                 </div>
 
                                                 <div className="flow-root">
-                                                    <a href="#"
+                                                    <a href="/"
                                                        className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">
                                                         <svg className="flex-shrink-0 h-6 w-6 text-gray-400"
                                                              xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -214,10 +217,10 @@ function Nav() {
                                 </Transition>
                             </div>
 
-                            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                            <a href="/" className="text-base font-medium text-gray-500 hover:text-gray-900">
                                 Features
                             </a>
-                            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                            <a href="/" className="text-base font-medium text-gray-500 hover:text-gray-900">
                                 Pricing
                             </a>
                             <div className="relative">
@@ -251,7 +254,7 @@ function Nav() {
                                         <div
                                             className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                             <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -272,7 +275,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -293,7 +296,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -314,7 +317,7 @@ function Nav() {
                                                     </div>
                                                 </a>
 
-                                                <a href="#"
+                                                <a href="/"
                                                    className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                                     <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -341,14 +344,14 @@ function Nav() {
                                                     </h3>
                                                     <ul className="mt-4 space-y-4">
                                                         <li className="text-base truncate">
-                                                            <a href="#"
+                                                            <a href="/"
                                                                className="font-medium text-gray-900 hover:text-gray-700">
                                                                 Boost your conversion rate
                                                             </a>
                                                         </li>
 
                                                         <li className="text-base truncate">
-                                                            <a href="#"
+                                                            <a href="/"
                                                                className="font-medium text-gray-900 hover:text-gray-700">
                                                                 How to use search engine optimization to drive traffic
                                                                 to
@@ -358,7 +361,7 @@ function Nav() {
                                                         </li>
 
                                                         <li className="text-base truncate">
-                                                            <a href="#"
+                                                            <a href="/"
                                                                className="font-medium text-gray-900 hover:text-gray-700">
                                                                 Improve your customer experience
                                                             </a>
@@ -366,7 +369,7 @@ function Nav() {
                                                     </ul>
                                                 </div>
                                                 <div className="mt-5 text-sm">
-                                                    <a href="#"
+                                                    <a href="/"
                                                        className="font-medium text-blue-500 hover:text-blue-600"> View
                                                         all
                                                         posts <span aria-hidden="true">&rarr;</span></a>
@@ -378,14 +381,24 @@ function Nav() {
                             </div>
                         </nav>
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                            <NavLink to='/login'
-                                     className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                                Log in
-                            </NavLink>
-                            <NavLink to='/login'
-                                     className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
-                                Sign up
-                            </NavLink>
+                            {isLoggedIn ?
+                                <NavLink to='/dashboard'
+                                         className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
+                                    Dashboard
+                                </NavLink>
+                                :
+                                <React.Fragment>
+                                    <NavLink to='/login'
+                                             className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                                        Log in
+                                    </NavLink>
+                                    <NavLink to='/login'
+                                             className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
+                                        Sign up
+                                    </NavLink>
+                                </React.Fragment>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -424,7 +437,7 @@ function Nav() {
                                 </div>
                                 <div className="mt-6">
                                     <nav className="grid gap-y-8">
-                                        <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <a href="/" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                             <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor" aria-hidden="true">
@@ -436,7 +449,7 @@ function Nav() {
                                     </span>
                                         </a>
 
-                                        <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <a href="/" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                             <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor" aria-hidden="true">
@@ -448,7 +461,7 @@ function Nav() {
                                     </span>
                                         </a>
 
-                                        <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <a href="/" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                             <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor" aria-hidden="true">
@@ -460,7 +473,7 @@ function Nav() {
                                     </span>
                                         </a>
 
-                                        <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <a href="/" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                             <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor" aria-hidden="true">
@@ -472,7 +485,7 @@ function Nav() {
                                         </span>
                                         </a>
 
-                                        <a href="#" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                        <a href="/" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                             <svg className="flex-shrink-0 h-6 w-6 text-blue-500"
                                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor" aria-hidden="true">
@@ -488,47 +501,59 @@ function Nav() {
                             </div>
                             <div className="py-6 px-5 space-y-6">
                                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Pricing
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Docs
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Enterprise
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Blog
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Help Center
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Guides
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Security
                                     </a>
 
-                                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                    <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                         Events
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="#"
-                                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
-                                        Sign up
-                                    </a>
-                                    <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                        Existing customer? <a href="#"
-                                                              className="text-blue-500 hover:text-blue-600">Log in</a>
-                                    </p>
+                                    {isLoggedIn ?
+                                        <React.Fragment>
+                                            <NavLink to='/dashboard'
+                                                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
+                                                Dashboard
+                                            </NavLink>
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment>
+                                            <NavLink to='/login'
+                                                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-600">
+                                                Sign up
+                                            </NavLink>
+                                            <p className="mt-6 text-center text-base font-medium text-gray-500">
+                                                Existing customer? <NavLink to="/login"
+                                                                            className="text-blue-500 hover:text-blue-600">Log
+                                                in</NavLink>
+                                            </p>
+                                        </React.Fragment>
+                                    }
                                 </div>
                             </div>
                         </div>
