@@ -57,7 +57,7 @@ function Landing() {
                                     <div className="min-w-0 flex-1">
                                         <label htmlFor="hero_email" className="sr-only">Email address</label>
                                         <input id="hero_email" type="email"
-                                               className="block w-full border border-gray-300 rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                               className="block w-full border border-gray-300 rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-blue-400 focus:ring-blue-400"
                                                placeholder="Enter your email"/>
                                     </div>
                                     <div className="mt-4 sm:mt-0 sm:ml-3">
@@ -413,12 +413,12 @@ function Landing() {
                         className="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
                         <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                             <span className="block">Lorem ipsum dolor sit amet.</span>
-                            <span className="block text-blue-500 text-transparent">Try our 14 day trial</span>
+                            <span className="block text-blue-500 text-transparent">Start your 14 day trial</span>
                         </h2>
                         <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
                             <a href="/"
                                className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium text-gray-500 hover:text-gray-900">
-                                Explore
+                                Learn more
                             </a>
                             <a href="/"
                                className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600">
