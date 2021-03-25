@@ -20,7 +20,7 @@ function createUsers(numUsers, role, team = null) {
         let user = {};
         const {salt, hash} = generateHashSalt('secret');
 
-        user.name = faker.name.findName();
+        user.name = `${faker.name.firstName()} ${faker.name.lastName()}`;
         user.email = faker.internet.exampleEmail();
         user.phone = faker.phone.phoneNumber();
         user.hash = hash;
