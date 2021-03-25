@@ -5,7 +5,7 @@ const TweetSchema = new mongoose.Schema({
     tweet_id: {
         type: Number,
         required: true,
-        unique: true,
+        unique: true
     },
     tweet_id_str: {
         type: String,
