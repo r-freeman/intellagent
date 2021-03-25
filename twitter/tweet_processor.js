@@ -5,6 +5,7 @@ import cleanTweet from './helpers';
 import Customer from '../models/customer.model';
 import Tweet from '../models/tweet.model';
 import Tag from '../models/tag.model';
+import Ticket from '../models/ticket.model';
 
 import welcomeMessage from './welcome_message';
 
@@ -86,13 +87,32 @@ const tweetProcessor = {
 
                 const tag = await Tag.findByName(classification.category);
 
-                // create a welcome message
-                const newWelcomeMessage = await welcomeMessage.create({sender, tweetText, tag});
+                // create the ticket
+                const ticket = await Ticket.create({
+                    status: 'hidden',
+                    customer: customer._id,
+                    issue_type: tag._id,
+                    messages: [
+                        {
+                            incoming: true,
+                            body: newTweet.text
+                        }
+                    ]
+                });
 
-                if (newWelcomeMessage !== null) {
-                    // reply to the customer's tweet and display a call to action to join a private conversation
-                    await twClient.replyToTweet(defaultTweet(sender.twitter_screen_name, twClient.createDeeplink(user.id_str, newWelcomeMessage.id)), tweet.id_str);
-                }
+                // create a welcome message
+                const newWelcomeMessage = await welcomeMessage.create({
+                    sender,
+                    text: newTweet.text,
+                    tag,
+                    reference: ticket.reference
+                });
+
+                ticket.welcome_message_id = newWelcomeMessage.id;
+                await ticket.save();
+
+                // reply to the customer's tweet and display a call to action to join a private conversation
+                await twClient.replyToTweet(defaultTweet(sender.twitter_screen_name, twClient.createDeeplink(user.id_str, newWelcomeMessage.id)), newTweet.tweet_id_str);
             }
         } catch (err) {
             console.error(err);
