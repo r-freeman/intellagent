@@ -54,6 +54,12 @@ const TicketSchema = new mongoose.Schema({
 
 // use pre middleware to generate a unique reference property
 TicketSchema.pre('save', function (next) {
+    const ticket = this;
+
+    if (!ticket.isModified('reference')) {
+        return next();
+    }
+
     this.reference = nanoId();
     next();
 });
