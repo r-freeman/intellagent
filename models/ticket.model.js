@@ -71,7 +71,7 @@ TicketSchema.statics.findByReference = async function (reference) {
 
 // locate ticket by welcome message id
 TicketSchema.statics.findByWelcomeMessageId = async function (welcome_message_id) {
-    return await this.findOne({welcome_message_id}).exec();
+    return await this.findOne({welcome_message_id}).populate('customer').exec();
 };
 
 const Ticket = mongoose.model('Ticket', TicketSchema);
