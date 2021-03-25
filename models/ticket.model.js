@@ -56,7 +56,7 @@ const TicketSchema = new mongoose.Schema({
 TicketSchema.pre('save', function (next) {
     const ticket = this;
 
-    if (!ticket.isModified('reference')) {
+    if (!ticket.isNew) {
         return next();
     }
 
