@@ -23,7 +23,7 @@ exports.findOne = async (req, res) => {
         const {_id, reference} = req.query;
         const filter = (typeof _id !== 'undefined' && _id.length === 24) ? {_id: _id} : {reference: reference};
 
-        const ticket = await Ticket.findOne(filter).populate('customer').exec();
+        const ticket = await Ticket.findOne(filter).populate('customer issue_type').exec();
 
         if (ticket !== null) {
             return res.status(200).send(ticket);
@@ -36,12 +36,12 @@ exports.findOne = async (req, res) => {
     }
 };
 
-// return all tickets
+// returns all the user's tickets
 exports.findAll = async (req, res) => {
     try {
-        let ticket = await Ticket.find().populate('customer').exec();
+        const tickets = await Ticket.find({user: req.user['sub']}).populate('customer issue_type').exec();
 
-        return res.status(200).send(ticket);
+        return res.status(200).send(tickets);
     } catch (err) {
         console.error(err);
         return res.status(500).send();
