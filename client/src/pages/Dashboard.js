@@ -141,7 +141,7 @@ function Dashboard() {
                                                     </div>
                                                     <div className="ml-5 w-0 flex-1">
                                                         <dt className="text-sm font-medium text-gray-500 truncate">
-                                                            Closed Tickets
+                                                            Resolved Tickets
                                                         </dt>
                                                         <dd className="flex items-baseline">
                                                             <div className="text-2xl font-semibold text-gray-900">
@@ -155,7 +155,7 @@ function Dashboard() {
                                                 <div className="text-sm">
                                                     <a href="#"
                                                        className="font-medium text-blue-500 hover:text-blue-600"> View
-                                                        all<span className="sr-only"> closed tickets</span></a>
+                                                        all<span className="sr-only"> resolved tickets</span></a>
                                                 </div>
                                             </div>
                                         </div>
