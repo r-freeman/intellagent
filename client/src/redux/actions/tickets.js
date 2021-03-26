@@ -2,7 +2,9 @@ import {BASE_URL} from '../../api';
 import {
     FETCH_TICKETS_BEGIN,
     FETCH_TICKETS_SUCCESS,
-    FETCH_TICKETS_FAILURE
+    FETCH_TICKETS_FAILURE,
+    FIND_TICKET_SUCCESS,
+    FIND_TICKET_FAILURE
 } from '../types';
 
 const fetchTickets = () => async (dispatch, getState) => {
@@ -31,4 +33,19 @@ const fetchTickets = () => async (dispatch, getState) => {
     }
 };
 
-export const tickets = {fetchTickets};
+const findTicket = (reference) => (dispatch, getState) => {
+    try {
+        const ticket = getState().tickets.tickets.find(ticket => ticket.reference === reference);
+
+        if (typeof ticket !== 'undefined') {
+            dispatch({type: FIND_TICKET_SUCCESS, payload: ticket});
+        } else {
+            dispatch({type: FIND_TICKET_FAILURE});
+        }
+    } catch (err) {
+        console.log(err);
+        dispatch({type: FIND_TICKET_FAILURE});
+    }
+}
+
+export const tickets = {fetchTickets, findTicket};
