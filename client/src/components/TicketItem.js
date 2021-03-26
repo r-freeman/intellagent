@@ -1,8 +1,13 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 
 function TicketItem({ticket}) {
+    let history = useHistory();
+
+    const navigateTo = (path) => history.push(path);
+
     return (
-        <tr className="group">
+        <tr>
             <td className="px-6 py-4 whitespace-nowrap">
                 <input id="select_ticket" name="select_ticket"
                        type="checkbox"
@@ -26,8 +31,10 @@ function TicketItem({ticket}) {
                     </div>
                 </div>
             </td>
-            <td className="px-6 py-4 whitespace-nowrap">
-                <p className={`${ticket.messages[0].read !== true ? 'font-semibold' : ''} text-sm text-gray-900`}>
+            <td className="px-6 py-4 whitespace-nowrap cursor-pointer"
+                onClick={() => navigateTo(`tickets/${ticket.reference}`)}>
+                <p
+                    className={`${ticket.messages[0].read !== true ? 'font-semibold' : ''} text-sm text-gray-900`}>
                     {`${ticket.messages[0].body.substring(0, 80)}...`}
                 </p>
             </td>
