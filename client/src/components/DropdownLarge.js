@@ -15,7 +15,7 @@ function DropdownLarge({dropdown, setDropdown, toggleDropdown}) {
     }
 
     return (
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block text-left z-10">
             <div className="inline-flex items-center">
                 <div className="relative inline-flex mr-4">
                     <button type="button"
@@ -36,7 +36,7 @@ function DropdownLarge({dropdown, setDropdown, toggleDropdown}) {
                 <button type="button"
                         onBlur={() => setDropdown(false)}
                         onClick={toggleDropdown}
-                        className={`${dropdown ? 'bg-gray-50' : 'hover:bg-gray-50'} inline-flex justify-center items-center w-full rounded-md border border-gray-200 shadow-sm px-4 py-2 -my-1 bg-white text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-400`}
+                        className={`${dropdown ? 'bg-gray-50' : 'hover:bg-gray-50'} inline-flex justify-center items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 -my-1 bg-white text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-400`}
                         id="options-menu" aria-haspopup="true" aria-expanded="true">
                     <img className="h-8 w-8 rounded-full mr-4"
                          src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixqx=8hnVwnWwQD&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
