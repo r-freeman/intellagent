@@ -52,7 +52,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.statics.findByEmail = async function (email) {
-    return await this.findOne({email}).select('-team -role').exec();
+    return await this.findOne({email}).populate('team').exec();
 };
 
 const User = mongoose.model('User', UserSchema);
