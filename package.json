@@ -1,17 +1,21 @@
 {
   "name": "server",
   "version": "0.0.1",
+  "engines": {
+    "node": "14.16.1"
+  },
   "private": true,
   "scripts": {
     "start": "npm run prod",
     "build": "npm-run-all clean transpile",
-    "server": "nodenv --exec ./dist-server/bin/www.js",
+    "server": "node ./dist-server/bin/www.js",
     "dev": "cross-env NODE_ENV=development npm-run-all build server",
     "prod": "cross-env NODE_ENV=production npm-run-all build server",
     "transpile": "babel ./server --out-dir dist-server",
     "clean": "rimraf dist-server",
     "watch:dev": "nodemon",
-    "passport:install": "node generate_keys.js"
+    "passport:install": "node generate_keys.js",
+    "heroku-postbuild": "npm run passport:install"
   },
   "dependencies": {
     "@babel/cli": "^7.13.16",
