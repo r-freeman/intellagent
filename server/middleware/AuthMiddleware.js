@@ -33,6 +33,7 @@ const validateLogin = [
 
 const validateUser = [
     body('email').custom(email => {
+        email = email.toLowerCase();
         return User.findOne({email}).then(user => {
             if (!user) {
                 return Promise.reject('User does not exist');

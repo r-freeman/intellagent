@@ -28,7 +28,7 @@ function createUsers(numUsers, role, team = null) {
         const {salt, hash} = generateHashSalt('secret');
 
         user.name = `${faker.name.firstName()} ${faker.name.lastName()}`;
-        user.email = faker.internet.exampleEmail();
+        user.email = faker.internet.exampleEmail().toLowerCase();
         user.phone = faker.phone.phoneNumber();
         user.photo = photos.pop();
         user.hash = hash;

@@ -1,9 +1,11 @@
-import {User, Role} from '../models';
+import {User} from '../models';
 import {validatePassword, issueJwt} from '../passport/helpers';
 
 exports.login = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const password = req.body.password;
+        const email = req.body.email.toLowerCase();
+
         const user = await User.findByEmail(email);
         const isPasswordValid = validatePassword(password, user.hash, user.salt);
 
