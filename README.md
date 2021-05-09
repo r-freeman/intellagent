@@ -1,1 +1,0 @@
-![dashboard](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/03/Screenshot-2021-03-11-005832.png)
