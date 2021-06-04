@@ -1,13 +1,13 @@
-import eventProcessor from '../twitter/event_processor';
+import {handleTweet, handleMessage} from '../twitter/events';
 
 exports.post = async (req, res) => {
     try {
         const event = req.body;
 
         if (event.tweet_create_events) {
-            await eventProcessor.tweet(event);
+            await handleTweet(event);
         } else if (event.direct_message_events) {
-            await eventProcessor.message(event);
+            await handleMessage(event);
         }
 
         res.status(200).send('OK');

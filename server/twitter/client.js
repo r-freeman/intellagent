@@ -39,8 +39,8 @@ const twitterClient = (function () {
                 console.error(err);
             }
         },
-        // sends a response to a public tweet
-        replyToTweet: async function (status, tweet_id) {
+        // send a tweet
+        sendTweet: async function (status, tweet_id = null) {
             try {
                 await client.post(STATUS_UPDATE, {
                     status,
@@ -51,21 +51,9 @@ const twitterClient = (function () {
             }
         },
         // sends a direct message to a given recipient
-        sendDirectMessage: async function (text, recipient_id) {
+        sendDirectMessage: async function (message_body) {
             try {
-                const response = await client.post(NEW_DIRECT_MESSAGE, {
-                    event: {
-                        type: "message_create",
-                        message_create: {
-                            target: {
-                                recipient_id
-                            },
-                            message_data: {
-                                text
-                            }
-                        }
-                    }
-                });
+                const response = await client.post(NEW_DIRECT_MESSAGE, message_body);
 
                 if (response._headers.get('status') === '200 OK') {
                     return response;

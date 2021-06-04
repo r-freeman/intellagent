@@ -27,9 +27,9 @@ const app = express();
 
 if (process.env.NODE_ENV === 'development') {
     app.use(logger('dev'));
-} else {
-    require("./twitter/webhooks");
 }
+
+require("./twitter/webhooks");
 
 app.use(express.json());
 app.use(cors());

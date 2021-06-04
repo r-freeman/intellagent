@@ -1,5 +1,5 @@
 import {Autohook} from 'twitter-autohook';
-import eventProcessor from './event_processor';
+import {handleTweet, handleMessage} from './events';
 
 // initialise twitter web hooks
 (async start => {
@@ -14,11 +14,11 @@ import eventProcessor from './event_processor';
         // Listens to incoming activity
         webhook.on('event', async (event) => {
             if (event.tweet_create_events) {
-                // process incoming tweets
-                await eventProcessor.tweet(event);
+                // handle incoming tweet
+                await handleTweet(event);
             } else if (event.direct_message_events) {
-                // process incoming messages
-                await eventProcessor.message(event);
+                // handle incoming messages
+                await handleMessage(event);
             }
         });
 

@@ -1,6 +1,8 @@
-import {Ticket} from '../models';
+import {Ticket, Customer, Tag} from '../models';
 import twitterClient from '../twitter/client';
+import messageBody from '../twitter/messages/message_body';
 
+const socketio = require('../socketio');
 const twClient = twitterClient;
 
 exports.findAll = async (req, res) => {
@@ -12,29 +14,52 @@ exports.findAll = async (req, res) => {
         console.error(err);
         return res.sendStatus(500);
     }
-}
+};
 
 exports.createMessage = async (req, res) => {
     try {
         const {id} = req.params;
-        const {text, recipient_id} = req.body;
+        const {text, recipient_id, incoming} = req.body;
+        const ticket = await Ticket.findOne({_id: id, user: req.user['sub']}).exec();
 
-        const ticket = await Ticket.findById(id).exec();
-
+        let message = {
+            body: text
+        };
         if (ticket !== null) {
-            const response = await twClient.sendDirectMessage(text, recipient_id);
+            const io = socketio.getInstance();
 
-            if (response !== null) {
-                const message = {
-                    incoming: false,
-                    read: true,
-                    body: text
-                }
+            // handle incoming message
+            if (incoming) {
+                message.incoming = true;
+                message.read = false;
 
                 ticket.messages.push(message);
                 await ticket.save();
 
-                return res.status(201).send(ticket.messages.slice(-1).shift());
+                ticket.customer = await Customer.findById(ticket.customer).exec();
+                ticket.issue_type = await Tag.findById(ticket.issue_type).exec();
+
+                io.to(ticket.user.toString()).emit('TICKET_NEW_MESSAGE', ticket);
+
+                return res.sendStatus(201);
+            }
+
+            // handle outgoing message
+            messageBody.event.message_create.target.recipient_id = recipient_id;
+            messageBody.event.message_create.message_data.text = text;
+
+            const response = await twClient.sendDirectMessage(messageBody);
+
+            if (response) {
+                message.incoming = false;
+                message.read = true;
+
+                ticket.messages.push(message);
+                await ticket.save();
+
+                message = ticket.messages.slice(-1).shift();
+
+                return res.status(201).send(message);
             }
         }
 
@@ -43,4 +68,29 @@ exports.createMessage = async (req, res) => {
         console.error(err);
         return res.sendStatus(500);
     }
-}
+};
+
+exports.changeStatus = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {status} = req.body;
+        const ticket = await Ticket.findOne({_id: id, user: req.user['sub']}).exec();
+
+        const statuses = ['open', 'closed'];
+
+        if (statuses.includes(status.toLowerCase()) && ticket !== null) {
+            ticket.status = status;
+            await ticket.save();
+
+            ticket.customer = await Customer.findById(ticket.customer).exec();
+            ticket.issue_type = await Tag.findById(ticket.issue_type).exec();
+
+            return res.status(200).send(ticket);
+        }
+
+        return res.status(422).send({error: 'Unprocessable entity'});
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
+};
