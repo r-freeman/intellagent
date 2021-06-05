@@ -9,7 +9,7 @@ import {
     cleanTweet,
     createDeeplink,
     createDefaultTweet,
-    createDefaultWelcomeMessage,
+    createDefaultMessage,
     createWelcomeMessage,
     classifyText
 } from './helpers';
@@ -39,7 +39,7 @@ async function handleTweet(event) {
                 name: sender.name,
                 twitter_id: sender.id_str,
                 twitter_screen_name: sender.screen_name,
-                twitter_photo_url: sender.profile_image_url
+                twitter_photo_url: sender.photo_url
             }
         }, {
             useFindAndModify: false,
@@ -121,7 +121,7 @@ async function handleMessage(event) {
                 name: sender.name,
                 twitter_id: sender.id,
                 twitter_screen_name: sender.screen_name,
-                twitter_photo_url: sender.profile_image_url
+                twitter_photo_url: sender.profile_image_url_https
             }
         }, {
             useFindAndModify: false,
@@ -137,7 +137,7 @@ async function handleMessage(event) {
                 if (welcome_message_id === process.env.TWITTER_DEFAULT_WELCOME_MESSAGE_ID) {
                     // if the customer initiated a direct message conversation with us
 
-                    await sendDefaultWelcomeMessage(message.message_create.message_data.text, customer);
+                    await sendDefaultMessage(message.message_create.message_data.text, customer);
                 } else {
                     const ticket = await Ticket.findByWelcomeMessageId(welcome_message_id);
 
@@ -199,7 +199,7 @@ async function handleMessage(event) {
                     const ticket = await Ticket.findOne({customer: customer._id, status: 'hidden'}).exec();
 
                     if (ticket === null) {
-                        await sendDefaultWelcomeMessage(message.message_create.message_data.text, customer);
+                        await sendDefaultMessage(message.message_create.message_data.text, customer);
                     }
                 }
             }
@@ -209,7 +209,7 @@ async function handleMessage(event) {
     }
 }
 
-async function sendDefaultWelcomeMessage(messageText, customer) {
+async function sendDefaultMessage(messageText, customer) {
     try {
         const classification = await classifyText(messageText);
 
@@ -226,7 +226,7 @@ async function sendDefaultWelcomeMessage(messageText, customer) {
             ]
         });
 
-        const messageToSend = createDefaultWelcomeMessage({
+        const messageToSend = createDefaultMessage({
             recipient: customer,
             messageText,
             tag,

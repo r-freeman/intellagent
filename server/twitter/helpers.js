@@ -16,7 +16,7 @@ async function createWelcomeMessage({recipient, tweetText, tag, reference}) {
     }
 }
 
-function createDefaultWelcomeMessage({recipient, messageText, tag, reference}) {
+function createDefaultMessage({recipient, messageText, tag, reference}) {
     const message = config.default_message;
     message.event.message_create.target.recipient_id = recipient.twitter_id;
     message.event.message_create.message_data.text = config.default_message_text(recipient, messageText, tag, reference);
@@ -70,7 +70,7 @@ export {
     createWelcomeMessage,
     createDeeplink,
     createDefaultTweet,
-    createDefaultWelcomeMessage,
+    createDefaultMessage,
     cleanTweet,
     classifyText
 };
