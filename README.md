@@ -1,4 +1,4 @@
-![Intellagent hero](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/06/Intellagent-hero.jpeg)
+[![Intellagent hero](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/06/Intellagent-hero.jpeg)](https://intellagent.help)
 
 # Intellagent
 
@@ -6,7 +6,7 @@ Intellagent is a cloud-based help desk automation application, powered by machin
 
 ## Technologies used
 
-Intellagent is a full stack application composed of three main components — [the client](https://github.com/r-freeman/intellagent-client), [server](https://github.com/r-freeman/intellagent-server) and [text classifier](https://github.com/r-freeman/intellagent-text-classifier).
+Intellagent is a full stack application composed of three main components — [the client](https://github.com/r-freeman/intellagent-client), [server](https://github.com/r-freeman/intellagent-server) and [text classifier](https://github.com/r-freeman/intellagent-text-classifier/tree/lambda).
 
 ### Client
 
@@ -24,6 +24,6 @@ The text classifier was written in Python and includes a pre-trained text classi
 
 The system uses an event-driven architecture and monitors Intellagent's Twitter account for incoming tweets and direct messages using the Twitter [Account Activity API](https://developer.twitter.com/en/docs/twitter-api/enterprise/account-activity-api/overview) and [webhooks](https://developer.twitter.com/en/docs/twitter-api/enterprise/account-activity-api/guides/getting-started-with-webhooks). When a new tweet or direct message arrives, the text within is sent to the text classifier which categorises it as one of eleven predefined customer issues. Our Twitter chatbot sends a direct message to the customer to confirm if the categorisation was correct. 
 
-Upon confirmation, the system chooses an agent at random belonging to the team for this particular issue. Next, the system emits a ticket assignment event which the client receives in real-time and a notification is displayed to the agent telling them that a new ticket has arrived. The agent then engages with the customer using the messaging system which uses the Twitter Direct Message API to exchange messages back and forth. Incoming messages from Twitter are trapped using webhooks, appended to the ticket and emitted back to the client using Socket.IO. Whereas outgoing messages are sent directly to the customer using the Direct Message API. This means that the agent never has to refresh the page to see new ticket messages. For the customer, the entire interaction is seamless and takes place on Twitter's website or mobile application.
+Upon confirmation, the system chooses an agent at random belonging to the team for this particular issue. Next, the system emits a ticket assignment event which the client receives in real-time and a notification is displayed to the agent telling them that a new ticket has arrived. The agent then engages with the customer using the messaging system which uses the Twitter Direct Message API to exchange messages back and forth. Incoming messages from Twitter are trapped using webhooks, appended to the ticket and emitted back to the client using Socket.IO. Whereas outgoing messages are sent directly to the customer using the [Direct Message API](https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/api-features). This means that the agent never has to refresh the page to see new ticket messages. For the customer, the entire interaction is seamless and takes place on Twitter's website or mobile application.
 
 
