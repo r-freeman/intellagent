@@ -28,6 +28,9 @@ exports.createMessage = async (req, res) => {
         if (ticket !== null) {
             const io = socketio.getInstance();
 
+            ticket.customer = await Customer.findById(ticket.customer).exec();
+            ticket.issue_type = await Tag.findById(ticket.issue_type).exec();
+
             // handle incoming message
             if (incoming) {
                 message.incoming = true;
@@ -35,9 +38,6 @@ exports.createMessage = async (req, res) => {
 
                 ticket.messages.push(message);
                 await ticket.save();
-
-                ticket.customer = await Customer.findById(ticket.customer).exec();
-                ticket.issue_type = await Tag.findById(ticket.issue_type).exec();
 
                 io.to(ticket.user.toString()).emit('TICKET_NEW_MESSAGE', ticket);
 
@@ -57,9 +57,7 @@ exports.createMessage = async (req, res) => {
                 ticket.messages.push(message);
                 await ticket.save();
 
-                message = ticket.messages.slice(-1).shift();
-
-                return res.status(201).send(message);
+                return res.status(201).send(ticket);
             }
         }
 
