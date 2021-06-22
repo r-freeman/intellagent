@@ -3,8 +3,7 @@ import {validatePassword, issueJwt} from '../passport/helpers';
 
 exports.login = async (req, res) => {
     try {
-        const password = req.body.password;
-        const email = req.body.email.toLowerCase();
+        const {email, password} = req.body;
 
         const user = await User.findByEmail(email);
         const isPasswordValid = validatePassword(password, user.hash, user.salt);
