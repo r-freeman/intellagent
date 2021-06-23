@@ -4,6 +4,7 @@ import Tag from './Tag';
 import Team from './Team';
 import Ticket from './Ticket';
 import User from './User';
+import Notification from './Notification';
 
 export {
     Customer,
@@ -12,4 +13,5 @@ export {
     Team,
     Ticket,
     User,
+    Notification
 };

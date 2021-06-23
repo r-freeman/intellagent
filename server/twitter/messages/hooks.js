@@ -1,13 +1,7 @@
-import {Customer, Ticket} from '../../models';
+import {Customer, Ticket, Notification} from '../../models';
 
 const socketio = require('../../socketio');
 
-/**
- *
- * @param message
- * @param sender_id
- * @returns {Promise<null|{event: *}>}
- */
 export async function assignTicket(message, sender_id) {
     try {
         const io = socketio.getInstance();
@@ -17,7 +11,14 @@ export async function assignTicket(message, sender_id) {
         if (ticket) {
             const agent = await ticket.assign();
 
-            io.to(ticket.user.toString()).emit('TICKET_ASSIGNED', ticket);
+            const notification = await Notification.create({
+                type: 'info',
+                title: 'New ticket',
+                message: 'A new ticket was assigned to you.',
+                user: ticket.user
+            });
+
+            io.to(ticket.user.toString()).emit('TICKET_ASSIGNED', {ticket, notification});
 
             message.message_create.message_data.text = `Thank you for confirming, ${agent.name.split(" ")[0]} from our ${agent.team} team will assist you shortly.`;
 

@@ -1,4 +1,4 @@
-import {Ticket, Customer, Tag} from '../models';
+import {Ticket, Customer, Tag, Notification} from '../models';
 import twitterClient from '../twitter/client';
 import messageBody from '../twitter/messages/message_body';
 
@@ -39,8 +39,14 @@ exports.createMessage = async (req, res) => {
                 ticket.messages.push(message);
                 await ticket.save();
 
-                io.to(ticket.user.toString()).emit('TICKET_NEW_MESSAGE', ticket);
+                const notification = await Notification.create({
+                    type: 'info',
+                    title: 'New message',
+                    message: `You have a new message from ${ticket.customer.name}`,
+                    user: ticket.user
+                });
 
+                io.to(ticket.user.toString()).emit('TICKET_NEW_MESSAGE', {ticket, notification});
                 return res.sendStatus(201);
             }
 
