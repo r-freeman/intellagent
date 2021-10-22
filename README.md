@@ -1,5 +1,4 @@
-[![Intellagent hero](https://ryanfreeman.dev/wordpress/wp-content/uploads/2021/06/Intellagent-hero.jpeg)](https://intellagent.help)
-
+![Intellagent hero](https://user-images.githubusercontent.com/30879081/138469741-54ea0479-4e47-48cd-8737-8efc2f647a1f.jpeg)
 # Intellagent
 
 Intellagent is a cloud-based help desk automation application, powered by machine learning. It integrates with Twitter and uses text classification to automatically triage incoming customer queries, connecting the customer to the correct agent according to agent's skillset and nature of the query. Intellagent is the result of my final year independent research project at IADT which aimed to examine machine learning and its applications for business process optimisation. This project gave me the opportunity to use new technologies and experiment with machine learning and AI.
