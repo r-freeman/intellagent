@@ -1,0 +1,61 @@
+org: intellagent
+app: text-classifier-lambda
+service: text-classifier-lambda
+
+plugins:
+  - serverless-dotenv-plugin
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-east-1
+  lambdaHashingVersion: '20201221'
+  environment:
+    PYPATH: /mnt/efs/lambda/lib
+    NLTK_DATA: /opt/nltk_data
+    MODEL_DATA: /opt/model_data
+
+
+functions:
+  api:
+    handler: handler.handler
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_IDS}
+      subnetIds:
+        - ${env:SUBNET_IDS}
+    events:
+      - http:
+          path: /
+          method: POST
+      - http:
+          path: /{proxy+}
+          method: POST
+    layers:
+      - { Ref: NltkLambdaLayer }
+      - { Ref: ModelsLambdaLayer }
+
+
+resources:
+  extensions:
+    ApiLambdaFunction:
+      Properties:
+        FileSystemConfigs:
+          - Arn: ${env:ACCESS_POINT_ARN}
+            LocalMountPath: /mnt/efs
+
+layers:
+  nltk:
+    path: nltk
+    name: NltkData
+  models:
+    path: models
+    name: ModelData
+
+package:
+  exclude:
+    - nltk/**
+    - models/**
+    - node_modules/**

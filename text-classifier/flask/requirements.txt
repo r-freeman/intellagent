@@ -1,0 +1,15 @@
+click==7.1.2
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.3
+joblib==1.0.0
+MarkupSafe==1.1.1
+nltk==3.5
+numpy==1.19.5
+regex==2020.11.13
+scikit-learn==0.23.1
+scipy==1.5.4
+sklearn==0.0
+threadpoolctl==2.1.0
+tqdm==4.56.0
+Werkzeug==1.0.1
