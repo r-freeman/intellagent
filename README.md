@@ -11,8 +11,8 @@ use new technologies and experiment with machine learning and AI.
 ## Technologies used
 
 Intellagent is a full stack application composed of three main
-components — [frontend](https://github.com/r-freeman/intellagent/frontend), [backend](https://github.com/r-freeman/intellagent/backend)
-and [text classifier lambda function](https://github.com/r-freeman/intellagent/text-classifier/tree/lambda).
+components — [frontend](https://github.com/r-freeman/intellagent/tree/main/frontend), [backend](https://github.com/r-freeman/intellagent/tree/main/backend)
+and [text classifier lambda function](https://github.com/r-freeman/intellagent/tree/main/text-classifier/lambda).
 
 ### Frontend
 
