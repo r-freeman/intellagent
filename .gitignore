@@ -1,6 +1,1 @@
-node_modules/
-public/
-dist-server/
-id_rsa*
-.env
 .idea/
